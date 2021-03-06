@@ -13,8 +13,8 @@ enum
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 
-SDL_Rect grunio = {SCREEN_HEIGHT, (SCREEN_WIDTH / 2) - 50, 50, 50};
-SDL_Rect carrot = {0, 0, 10, 20};
+SDL_Rect grunio = {SCREEN_HEIGHT, (SCREEN_WIDTH / 2) - 100, 100, 100};
+SDL_Rect carrot = {0, 0, 20, 40};
 
 SDL_Texture *grunioCurrentTexture;
 SDL_Texture *grunioLeftTexture;
@@ -73,7 +73,7 @@ int isCatched()
 
 	int difference = grunio.x - carrot.x;
 
-	if (difference < 50 && difference > -50)
+	if (difference < 90 && difference > -90)
 	{
 		return 1;
 	}
