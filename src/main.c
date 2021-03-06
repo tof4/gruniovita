@@ -17,25 +17,17 @@ SDL_Rect fillRect = {
 	50,
 	50};
 
+SDL_Texture *currentGrunio;
 SDL_Texture *grunioLeft;
 SDL_Texture *grunioRight;
 
 SceCtrlData ctrl;
 
-void draw(int strona)
+void draw()
 {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
-
-	if (strona == 0)
-	{
-		SDL_RenderCopy(renderer, grunioLeft, NULL, &fillRect);
-	}
-	else
-	{
-		SDL_RenderCopy(renderer, grunioRight, NULL, &fillRect);
-	}
-
+	SDL_RenderCopy(renderer, currentGrunio, NULL, &fillRect);
 	SDL_RenderPresent(renderer);
 }
 
@@ -48,6 +40,7 @@ int main(int argc, char *argv[])
 
 	grunioLeft = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_left.bmp"));
 	grunioRight = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_right.bmp"));
+	currentGrunio = grunioLeft;
 
 	draw(0);
 
@@ -57,19 +50,25 @@ int main(int argc, char *argv[])
 
 		switch (ctrl.buttons)
 		{
+
 		case SCE_CTRL_LEFT:
-			fillRect.x -= 1;
-			draw(0);
+			if (fillRect.x != 0)
+			{
+				fillRect.x -= 1;
+				currentGrunio = grunioLeft;
+			}
 			break;
 
 		case SCE_CTRL_RIGHT:
-			fillRect.x += 1;
-			draw(1);
-			break;
-
-		default:
+			if (fillRect.x != SCREEN_WIDTH - 50)
+			{
+				fillRect.x += 1;
+				currentGrunio = grunioRight;
+			}
 			break;
 		}
+
+		draw();
 	}
 
 	SDL_DestroyRenderer(renderer);
