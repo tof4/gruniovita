@@ -5,7 +5,7 @@ int carrotCycle = 0;
 
 int random(int min, int max)
 {
-   return min + rand() / (RAND_MAX / (max - min + 1) + 1);
+    return min + rand() / (RAND_MAX / (max - min + 1) + 1);
 }
 
 bool isCatched()
@@ -59,7 +59,8 @@ void moveGrunioLeft()
     if (grunio.x != 0)
     {
         grunio.x -= 1;
-        showLeftGrunio();
+        flipGrunio = true;
+        nextGrunioFrame();
     }
 }
 
@@ -68,7 +69,8 @@ void moveGrunioRight()
     if (grunio.x != SCREEN_WIDTH - 100)
     {
         grunio.x += 1;
-        showRightGrunio();
+        flipGrunio = false;
+        nextGrunioFrame();
     }
 }
 

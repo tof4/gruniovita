@@ -83,7 +83,17 @@ vita_create_vpk(${PROJECT_NAME}.vpk ${VITA_TITLEID} ${PROJECT_NAME}.self
   FILE sce_sys/livearea/contents/bg.png sce_sys/livearea/contents/bg.png
   FILE sce_sys/livearea/contents/startup.png sce_sys/livearea/contents/startup.png
   FILE sce_sys/livearea/contents/template.xml sce_sys/livearea/contents/template.xml
-  FILE assets/grunio_right.bmp assets/grunio_right.bmp
-  FILE assets/grunio_left.bmp assets/grunio_left.bmp
+  FILE assets/grunio_red_1.bmp assets/grunio_red_1.bmp
+  FILE assets/grunio_red_2.bmp assets/grunio_red_2.bmp
+  FILE assets/grunio_red_3.bmp assets/grunio_red_3.bmp
+  FILE assets/grunio_blue_1.bmp assets/grunio_blue_1.bmp
+  FILE assets/grunio_blue_2.bmp assets/grunio_blue_2.bmp
+  FILE assets/grunio_blue_3.bmp assets/grunio_blue_3.bmp
+  FILE assets/grunio_green_1.bmp assets/grunio_green_1.bmp
+  FILE assets/grunio_green_2.bmp assets/grunio_green_2.bmp
+  FILE assets/grunio_green_3.bmp assets/grunio_green_3.bmp
+  FILE assets/grunio_gray_1.bmp assets/grunio_gray_1.bmp
+  FILE assets/grunio_gray_2.bmp assets/grunio_gray_2.bmp
+  FILE assets/grunio_gray_3.bmp assets/grunio_gray_3.bmp
   FILE assets/font.ttf assets/font.ttf
 )

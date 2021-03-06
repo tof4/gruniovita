@@ -6,6 +6,7 @@
 
 SceCtrlData ctrl;
 
+
 void readInput()
 {
 	sceCtrlPeekBufferPositive(0, &ctrl, 1);
@@ -20,12 +21,15 @@ void readInput()
 	case SCE_CTRL_RIGHT:
 		moveGrunioRight();
 		break;
+
+	case SCE_CTRL_CROSS:
+		nextGrunioColor();
+		break;
 	}
 }
 
-
 int main(int argc, char *argv[])
-{	
+{
 	initializeScreen();
 	initializeGame();
 

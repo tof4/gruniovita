@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <stdbool.h>
 
 #ifndef SCREEN
 #define SCREEN
@@ -11,11 +12,12 @@ enum
 
 extern SDL_Rect grunio;
 extern SDL_Rect carrot;
+extern bool flipGrunio;
 
 void initializeScreen();
 void draw();
 void quit();
-void showLeftGrunio();
-void showRightGrunio();
+void nextGrunioFrame();
+void nextGrunioColor();
 
 #endif
