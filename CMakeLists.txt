@@ -47,6 +47,8 @@ link_directories(
 
 add_executable(${PROJECT_NAME}
   src/main.c
+  src/screen.c
+  src/game.c
 )
 
 target_link_libraries(${PROJECT_NAME}

@@ -4,6 +4,7 @@
     "cmake.configureOnOpen": true,
     "files.associations": {
         "sdl_ttf.h": "c",
-        "system_error": "c"
+        "system_error": "c",
+        "processmgr.h": "c"
     },
 }
