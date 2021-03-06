@@ -2,6 +2,7 @@
 #include <psp2/kernel/processmgr.h>
 #include <psp2/ctrl.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 enum
 {
@@ -11,24 +12,102 @@ enum
 
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
-SDL_Rect fillRect = {
-	SCREEN_HEIGHT - 50,
-	(SCREEN_WIDTH / 2) - 50,
-	50,
-	50};
 
-SDL_Texture *currentGrunio;
-SDL_Texture *grunioLeft;
-SDL_Texture *grunioRight;
+SDL_Rect grunio = {SCREEN_HEIGHT, (SCREEN_WIDTH / 2) - 50, 50, 50};
+SDL_Rect carrot = {0, 0, 10, 20};
+
+SDL_Texture *grunioCurrentTexture;
+SDL_Texture *grunioLeftTexture;
+SDL_Texture *grunioRightTexture;
 
 SceCtrlData ctrl;
+
+int carrotCycle = 0;
 
 void draw()
 {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer, currentGrunio, NULL, &fillRect);
+	SDL_RenderCopy(renderer, grunioCurrentTexture, NULL, &grunio);
+	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	SDL_RenderFillRect(renderer, &carrot);
 	SDL_RenderPresent(renderer);
+}
+
+void readInput()
+{
+	sceCtrlPeekBufferPositive(0, &ctrl, 1);
+
+	switch (ctrl.buttons)
+	{
+
+	case SCE_CTRL_LEFT:
+		if (grunio.x != 0)
+		{
+			grunio.x -= 1;
+			grunioCurrentTexture = grunioLeftTexture;
+		}
+		break;
+
+	case SCE_CTRL_RIGHT:
+		if (grunio.x != SCREEN_WIDTH - 50)
+		{
+			grunio.x += 1;
+			grunioCurrentTexture = grunioRightTexture;
+		}
+		break;
+	}
+}
+
+int random(int min, int max)
+{
+	return min + rand() / (RAND_MAX / (max - min + 1) + 1);
+}
+
+int isCatched()
+{
+	if (grunio.y != carrot.y)
+	{
+		return 0;
+	}
+
+	int difference = grunio.x - carrot.x;
+
+	if (difference < 50 && difference > -50)
+	{
+		return 1;
+	}
+
+	return 0;
+}
+
+void newCarrot()
+{
+	carrot.x = random(0, SCREEN_WIDTH - 20);
+	carrot.y = 0;
+}
+
+void moveCarrot()
+{
+	if (carrotCycle != 2)
+	{
+		carrotCycle++;
+		return;
+	}
+
+	carrotCycle = 0;
+	carrot.y++;
+
+	if (isCatched() == 1)
+	{
+		newCarrot();
+		return;
+	}
+
+	if (carrot.y == SCREEN_HEIGHT)
+	{
+		newCarrot();
+	}
 }
 
 int main(int argc, char *argv[])
@@ -38,39 +117,23 @@ int main(int argc, char *argv[])
 	window = SDL_CreateWindow("Main", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, 0);
 
-	grunioLeft = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_left.bmp"));
-	grunioRight = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_right.bmp"));
-	currentGrunio = grunioLeft;
+	grunioLeftTexture = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_left.bmp"));
+	grunioRightTexture = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_right.bmp"));
+	grunioCurrentTexture = grunioLeftTexture;
 
-	draw(0);
+	newCarrot();
+	draw();
 
 	while (1)
 	{
-		sceCtrlPeekBufferPositive(0, &ctrl, 1);
-
-		switch (ctrl.buttons)
-		{
-
-		case SCE_CTRL_LEFT:
-			if (fillRect.x != 0)
-			{
-				fillRect.x -= 1;
-				currentGrunio = grunioLeft;
-			}
-			break;
-
-		case SCE_CTRL_RIGHT:
-			if (fillRect.x != SCREEN_WIDTH - 50)
-			{
-				fillRect.x += 1;
-				currentGrunio = grunioRight;
-			}
-			break;
-		}
-
+		readInput();
+		moveCarrot();
 		draw();
 	}
 
+	SDL_DestroyTexture(grunioCurrentTexture);
+	SDL_DestroyTexture(grunioLeftTexture);
+	SDL_DestroyTexture(grunioRightTexture);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	window = NULL;

@@ -2,4 +2,8 @@
     "cmake.buildDirectory": "${workspaceRoot}/build",
     "C_Cpp.errorSquiggles": "Disabled",
     "cmake.configureOnOpen": true,
+    "files.associations": {
+        "sdl_ttf.h": "c",
+        "system_error": "c"
+    },
 }

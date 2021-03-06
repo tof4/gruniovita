@@ -51,6 +51,11 @@ add_executable(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   SDL2
+  SDL2_ttf
+  SDL2_image
+  freetype
+  png
+  z
   vita2d
   SceDisplay_stub
   SceCtrl_stub
@@ -78,4 +83,5 @@ vita_create_vpk(${PROJECT_NAME}.vpk ${VITA_TITLEID} ${PROJECT_NAME}.self
   FILE sce_sys/livearea/contents/template.xml sce_sys/livearea/contents/template.xml
   FILE assets/grunio_right.bmp assets/grunio_right.bmp
   FILE assets/grunio_left.bmp assets/grunio_left.bmp
+  FILE assets/font.ttf assets/font.ttf
 )
