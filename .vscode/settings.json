@@ -1,3 +1,4 @@
 {
     "cmake.buildDirectory": "${workspaceRoot}/build/${buildType}",
+    "C_Cpp.errorSquiggles": "Disabled",
 }
