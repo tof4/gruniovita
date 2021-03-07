@@ -13,6 +13,7 @@ enum
 extern SDL_Rect grunio;
 extern SDL_Rect carrot;
 extern bool flipGrunio;
+extern int carrotColor;
 
 void initializeScreen();
 void draw();

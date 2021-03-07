@@ -27,6 +27,7 @@ bool isCatched()
 
 void newCarrot()
 {
+    carrotColor = random(0, 3);
     carrot.x = random(0, SCREEN_WIDTH - 20);
     carrot.y = 0;
 }

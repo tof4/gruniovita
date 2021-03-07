@@ -7,12 +7,14 @@ SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 
 SDL_Rect grunio = {(SCREEN_WIDTH / 2) - 100, SCREEN_HEIGHT - 100, 100, 70};
-SDL_Rect carrot = {0, 0, 20, 40};
+SDL_Rect carrot = {0, 0, 50, 80};
 
 SDL_Texture *grunioTextures[4][3];
+SDL_Texture *carrotTextures[4];
 
 int grunioFrame = 0;
 int grunioColor = 0;
+int carrotColor = 0;
 
 bool flipGrunio = false;
 
@@ -31,7 +33,7 @@ void draw()
         SDL_RenderCopy(renderer, grunioTextures[grunioColor][grunioFrame], NULL, &grunio);
     }
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_RenderFillRect(renderer, &carrot);
+    SDL_RenderCopy(renderer, carrotTextures[carrotColor], NULL, &carrot);
     SDL_RenderPresent(renderer);
 }
 
@@ -44,15 +46,23 @@ void initializeScreen()
     grunioTextures[0][0] = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_red_1.bmp"));
     grunioTextures[0][1] = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_red_1.bmp"));
     grunioTextures[0][2] = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_red_3.bmp"));
+
     grunioTextures[1][0] = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_blue_1.bmp"));
     grunioTextures[1][1] = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_blue_2.bmp"));
     grunioTextures[1][2] = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_blue_3.bmp"));
+
     grunioTextures[2][0] = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_green_1.bmp"));
     grunioTextures[2][1] = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_green_2.bmp"));
     grunioTextures[2][2] = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_green_3.bmp"));
-    grunioTextures[3][0] = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_green_1.bmp"));
+
+    grunioTextures[3][0] = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_gray_1.bmp"));
     grunioTextures[3][1] = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_gray_2.bmp"));
     grunioTextures[3][2] = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/grunio_gray_3.bmp"));
+
+    carrotTextures[0] = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/carrot_red.bmp"));
+    carrotTextures[1] = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/carrot_blue.bmp"));
+    carrotTextures[2] = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/carrot_green.bmp"));
+    carrotTextures[3] = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP("assets/carrot_gray.bmp"));
 
     draw();
 }

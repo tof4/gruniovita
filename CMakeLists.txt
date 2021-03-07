@@ -95,5 +95,9 @@ vita_create_vpk(${PROJECT_NAME}.vpk ${VITA_TITLEID} ${PROJECT_NAME}.self
   FILE assets/grunio_gray_1.bmp assets/grunio_gray_1.bmp
   FILE assets/grunio_gray_2.bmp assets/grunio_gray_2.bmp
   FILE assets/grunio_gray_3.bmp assets/grunio_gray_3.bmp
+  FILE assets/carrot_red.bmp assets/carrot_red.bmp
+  FILE assets/carrot_blue.bmp assets/carrot_blue.bmp
+  FILE assets/carrot_green.bmp assets/carrot_green.bmp
+  FILE assets/carrot_gray.bmp assets/carrot_gray.bmp
   FILE assets/font.ttf assets/font.ttf
 )
