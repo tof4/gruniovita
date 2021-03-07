@@ -5,26 +5,33 @@
 #include "game.h"
 
 SceCtrlData ctrl;
-
+int crossButtonThreshold = 0;
 
 void readInput()
 {
 	sceCtrlPeekBufferPositive(0, &ctrl, 1);
 
-	switch (ctrl.buttons)
+	if (ctrl.buttons & SCE_CTRL_LEFT)
 	{
-
-	case SCE_CTRL_LEFT:
 		moveGrunioLeft();
-		break;
+	}
 
-	case SCE_CTRL_RIGHT:
+	if (ctrl.buttons & SCE_CTRL_RIGHT)
+	{
 		moveGrunioRight();
-		break;
+	}
 
-	case SCE_CTRL_CROSS:
-		nextGrunioColor();
-		break;
+	if (ctrl.buttons & SCE_CTRL_CROSS)
+	{
+		if (crossButtonThreshold == 0)
+		{
+			nextGrunioColor();
+			crossButtonThreshold++;
+		}
+	}
+	else if (crossButtonThreshold != 0)
+	{
+		crossButtonThreshold--;
 	}
 }
 
