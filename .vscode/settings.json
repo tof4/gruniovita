@@ -3,8 +3,11 @@
     "C_Cpp.errorSquiggles": "Disabled",
     "cmake.configureOnOpen": true,
     "files.associations": {
+        "*.pl.resx": "xml",
         "sdl_ttf.h": "c",
         "system_error": "c",
-        "processmgr.h": "c"
+        "processmgr.h": "c",
+        "stdbool.h": "c",
+        "screen.h": "c"
     },
 }
