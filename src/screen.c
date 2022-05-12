@@ -1,5 +1,4 @@
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
 #include "screen.h"
 
 SDL_Window *window = NULL;
@@ -15,14 +14,6 @@ int grunioFrame, grunioColor, carrotColor = 0;
 _Bool flipGrunio = false;
 
 SDL_Texture *loadTexture(char *path)
-{
-    SDL_Surface *surface = SDL_LoadBMP(path);
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, SDL_LoadBMP(path));
-    SDL_FreeSurface(surface);
-    return texture;
-}
-
-SDL_Texture *loadTransparentTexture(char *path)
 {
     SDL_Surface *surface = SDL_LoadBMP(path);
     SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, 0, 0, 0));
@@ -70,10 +61,10 @@ void initializeScreen()
     grunioTextures[3][1] = loadTexture("assets/grunio_gray_2.bmp");
     grunioTextures[3][2] = loadTexture("assets/grunio_gray_3.bmp");
 
-    carrotTextures[0] = loadTransparentTexture("assets/carrot_red.bmp");
-    carrotTextures[1] = loadTransparentTexture("assets/carrot_blue.bmp");
-    carrotTextures[2] = loadTransparentTexture("assets/carrot_green.bmp");
-    carrotTextures[3] = loadTransparentTexture("assets/carrot_gray.bmp");
+    carrotTextures[0] = loadTexture("assets/carrot_red.bmp");
+    carrotTextures[1] = loadTexture("assets/carrot_blue.bmp");
+    carrotTextures[2] = loadTexture("assets/carrot_green.bmp");
+    carrotTextures[3] = loadTexture("assets/carrot_gray.bmp");
 
     draw();
 }

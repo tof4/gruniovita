@@ -1,12 +1,17 @@
 #include <stdio.h>
-#include <psp2/kernel/processmgr.h>
-#include <psp2/ctrl.h>
 #include "screen.h"
 #include "game.h"
 
+#ifdef VITA
+#include <psp2/kernel/processmgr.h>
+#include <psp2/ctrl.h>
+
 SceCtrlData ctrl;
+#endif /* VITA */
+
 int crossButtonThreshold = 0;
 
+#ifdef VITA
 void readInput()
 {
 	sceCtrlPeekBufferPositive(0, &ctrl, 1);
@@ -34,6 +39,14 @@ void readInput()
 		crossButtonThreshold--;
 	}
 }
+#endif /* VITA */
+
+#ifdef LINUX
+void readInput()
+{
+	
+}
+#endif /* LINUX */
 
 int main(int argc, char *argv[])
 {
@@ -48,6 +61,10 @@ int main(int argc, char *argv[])
 	}
 
 	quit();
+
+#ifdef VITA
 	sceKernelExitProcess(0);
+#endif /* VITA */
+	
 	return 0;
 }

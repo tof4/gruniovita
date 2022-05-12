@@ -1,4 +1,3 @@
-#include <stdbool.h>
 #include "screen.h"
 
 int carrotCycle = 0;
