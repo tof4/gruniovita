@@ -3,7 +3,7 @@
 
 int carrotCycle = 0;
 
-int random(int min, int max)
+int randomInt(int min, int max)
 {
     return min + rand() / (RAND_MAX / (max - min + 1) + 1);
 }
@@ -27,8 +27,8 @@ bool isCatched()
 
 void newCarrot()
 {
-    carrotColor = random(0, 3);
-    carrot.x = random(0, SCREEN_WIDTH - 20);
+    carrotColor = randomInt(0, 3);
+    carrot.x = randomInt(0, SCREEN_WIDTH - 20);
     carrot.y = 0;
 }
 
