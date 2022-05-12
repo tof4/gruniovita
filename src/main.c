@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <SDL2/SDL.h>
 #include "screen.h"
 #include "game.h"
 
@@ -44,7 +45,37 @@ void readInput()
 #ifdef LINUX
 void readInput()
 {
-	
+	SDL_PumpEvents();
+	const Uint8 *keystate = SDL_GetKeyboardState(NULL);
+
+	if (keystate[SDL_SCANCODE_LEFT])
+	{
+		moveGrunioLeft();
+	}
+
+	if (keystate[SDL_SCANCODE_RIGHT])
+	{
+		moveGrunioRight();
+	}
+
+	if (keystate[SDL_SCANCODE_SPACE])
+	{
+		if (crossButtonThreshold == 0)
+		{
+			nextGrunioColor();
+			crossButtonThreshold++;
+		}
+	}
+	else if (crossButtonThreshold != 0)
+	{
+		crossButtonThreshold--;
+	}
+
+	if (keystate[SDL_SCANCODE_ESCAPE])
+	{
+		SDL_Quit();
+		exit(0);
+	}
 }
 #endif /* LINUX */
 
@@ -65,6 +96,6 @@ int main(int argc, char *argv[])
 #ifdef VITA
 	sceKernelExitProcess(0);
 #endif /* VITA */
-	
+
 	return 0;
 }
